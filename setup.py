@@ -13,7 +13,7 @@ DEPENDENCIES = [
 
 setup(
     name='django-hubbubs',
-    version='0.1',
+    version='0.1.0.pbs.1',
     description='PubSubHubbub subscriber app for Django projects.',
     long_description = open(README, 'r').read(),
     author='Laura Feier',
