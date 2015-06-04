@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib import admin
 from django.contrib.admin.util import flatten_fieldsets
 from django.contrib.admin.views.main import IS_POPUP_VAR
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
