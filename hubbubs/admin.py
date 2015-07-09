@@ -33,7 +33,7 @@ class AbstractSubscriptionAdmin(admin.ModelAdmin):
         def for_html_link(action_name):
             info = (
                 self.model._meta.app_label,
-                self.model._meta.module_name,
+                self.model._meta.model_name,
                 action_name
             )
             url_name = 'admin:hubbubs-%s-%s-%s' % info
@@ -51,7 +51,7 @@ class AbstractSubscriptionAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(AbstractSubscriptionAdmin, self).get_urls()
-        info = self.model._meta.app_label, self.model._meta.module_name
+        info = self.model._meta.app_label, self.model._meta.model_name
         url_patterns = patterns('',
             url(r'^(?P<sub_id>\d+)/subscribe/$',
                 self.admin_site.admin_view(self.subscribe),
@@ -113,7 +113,7 @@ class AbstractSubscriptionAdmin(admin.ModelAdmin):
                 messages.info(request, change_message)
                 return HttpResponseRedirect(
                     reverse('admin:%s_%s_changelist' % (
-                        opts.app_label, opts.module_name)
+                        opts.app_label, opts.model_name)
                     )
                 )
 

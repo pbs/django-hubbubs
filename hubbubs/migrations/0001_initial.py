@@ -1,58 +1,36 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Subscription'
-        db.create_table('hubbubs_subscription', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('topic', self.gf('django.db.models.fields.URLField')(max_length=255)),
-            ('hub', self.gf('django.db.models.fields.URLField')(max_length=255)),
-            ('verify_token', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('secret', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('lease_expiration', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('status', self.gf('django.db.models.fields.PositiveSmallIntegerField')(default=0)),
-            ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'], null=True, blank=True)),
-        ))
-        db.send_create_signal('hubbubs', ['Subscription'])
+    dependencies = [
+        ('sites', '0001_initial'),
+    ]
 
-        # Adding unique constraint on 'Subscription', fields ['topic', 'site']
-        db.create_unique('hubbubs_subscription', ['topic', 'site_id'])
-
-
-    def backwards(self, orm):
-        # Removing unique constraint on 'Subscription', fields ['topic', 'site']
-        db.delete_unique('hubbubs_subscription', ['topic', 'site_id'])
-
-        # Deleting model 'Subscription'
-        db.delete_table('hubbubs_subscription')
-
-
-    models = {
-        'hubbubs.subscription': {
-            'Meta': {'unique_together': "(('topic', 'site'),)", 'object_name': 'Subscription'},
-            'hub': ('django.db.models.fields.URLField', [], {'max_length': '255'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'lease_expiration': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'secret': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']", 'null': 'True', 'blank': 'True'}),
-            'status': ('django.db.models.fields.PositiveSmallIntegerField', [], {'default': '0'}),
-            'topic': ('django.db.models.fields.URLField', [], {'max_length': '255'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'verify_token': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'})
-        },
-        'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        }
-    }
-
-    complete_apps = ['hubbubs']
+    operations = [
+        migrations.CreateModel(
+            name='Subscription',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('topic', models.URLField(max_length=255, verbose_name='Topic')),
+                ('hub', models.URLField(max_length=255, verbose_name='Hub')),
+                ('verify_token', models.CharField(max_length=255, null=True, verbose_name='Verify Token', blank=True)),
+                ('lease_expiration', models.DateTimeField(verbose_name='Lease expiration', null=True, editable=False, blank=True)),
+                ('secret', models.CharField(max_length=255, null=True, verbose_name='Secret', blank=True)),
+                ('status', models.PositiveSmallIntegerField(default=0, editable=False, choices=[(0, 'inactive'), (1, 'active'), (2, 'verifying'), (3, 'subscribe action rejected'), (4, 'unsubscribe action rejected')])),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AlterUniqueTogether(
+            name='subscription',
+            unique_together=set([('topic', 'site')]),
+        ),
+    ]
