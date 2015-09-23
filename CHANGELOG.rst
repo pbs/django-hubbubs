@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+Revision e541175 (23.09.2015, 15:08 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * DJango 1.8 upgrade: removed some django1.9 deprecation warnings
+  * Django 1.8 upgrade: updated package dependencies
+
 Revision 51df664 (17.07.2015, 09:22 UTC)
 ----------------------------------------
 
