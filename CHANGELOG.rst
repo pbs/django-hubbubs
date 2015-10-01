@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+Revision eb09ca2 (01.10.2015, 12:18 UTC)
+----------------------------------------
+
+* LUN-2674
+
+  * Explicitly specify no excludes for forms.
+
+No other commits.
+
 Revision e541175 (23.09.2015, 15:08 UTC)
 ----------------------------------------
 
