@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+Revision 73363d2 (04.10.2019, 12:58 UTC)
+----------------------------------------
+
+No new issues.
+
+* Misc commits
+
+  * Remove colon
+  * Pin atts to 19.1.0
+
 Revision 176e0c0 (02.11.2018, 16:26 UTC)
 ----------------------------------------
 
